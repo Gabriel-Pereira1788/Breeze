@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Breeze",
+    "slug": "Breeze",
+    "version": "1.0.0",
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}
