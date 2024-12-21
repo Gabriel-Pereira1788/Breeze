@@ -1,2 +1,2 @@
 export * from "./useCases";
-export type { ChatRoom } from "./roomTypes";
+export type { ChatRoom, NewRoomRequest } from "./roomTypes";

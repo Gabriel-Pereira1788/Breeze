@@ -14,3 +14,9 @@ export interface ChatRoom {
   ownerId: string;
   description: string;
 }
+
+export interface NewRoomRequest {
+  name: string;
+  description: string;
+  imageUrl: string;
+}

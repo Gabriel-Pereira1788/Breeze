@@ -9,9 +9,7 @@ export type NewRoomViewModel = ReturnType<typeof useNewRoomViewModel>;
 
 export const roomSchema = z.object({
   name: z.string({ required_error: "Empty Field" }).min(5, "Name to short."),
-  description: z
-    .string({ required_error: "Empty Field" })
-    .min(5, "Name to short."),
+  description: z.string({ required_error: "Empty Field" }),
 });
 
 export type RoomSchema = z.infer<typeof roomSchema>;

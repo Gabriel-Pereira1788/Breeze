@@ -2,7 +2,6 @@ import { ChatRoom, GetRoomsUseCase } from "@domain";
 import { QueryKeys } from "@infra";
 import { useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
-import { useEffect } from "react";
 
 type Props = {
   getRoomsUseCase: GetRoomsUseCase;

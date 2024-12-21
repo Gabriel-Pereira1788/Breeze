@@ -4,6 +4,7 @@ import { palette } from "@/styles";
 import { Redirect, Stack } from "expo-router";
 import { useSession } from "@/providers";
 import { ScrollView } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 export default function AuthLayout() {
   const { session, loading } = useSession();
@@ -19,7 +20,7 @@ export default function AuthLayout() {
   return (
     <Stack
       screenLayout={({ children }) => (
-        <ScrollView
+        <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           alwaysBounceVertical={false}
           style={{ flex: 1 }}
@@ -31,7 +32,7 @@ export default function AuthLayout() {
           }}
         >
           {children}
-        </ScrollView>
+        </KeyboardAwareScrollView>
       )}
       screenOptions={{
         statusBarStyle: "light",

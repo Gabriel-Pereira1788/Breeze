@@ -30,6 +30,7 @@ export function TextInput(props: TextInputProps) {
         alignItems="center"
         justifyContent="space-between"
         px="sp20"
+        py="sp20"
         borderRadius="rd30"
         height={textInputProps.multiline ? 200 : 64}
         shadowOffset={{ width: 0, height: 1 }}
@@ -45,7 +46,7 @@ export function TextInput(props: TextInputProps) {
         <TextInputRN
           {...textInputProps}
           placeholderTextColor={"#ACADB9"}
-          style={{ flex: 1 }}
+          style={{ flex: 1, height: "100%" }}
           autoCapitalize="none"
         />
         <If condition={!!RightElement}>

@@ -16,8 +16,6 @@ type Props = {
   getMessagesUseCase: GetMessagesUseCase;
 };
 
-const CHAT_ROOM_ID = 1;
-
 export function useChatRoomViewModel({
   sendMessageUseCase,
   getMessagesUseCase,
@@ -26,11 +24,10 @@ export function useChatRoomViewModel({
   const { chatRoomId, title, imageUrl } = useLocalSearchParams();
 
   const { data, isLoading, error } = useQuery({
-    queryFn: () => getMessagesUseCase.execute(CHAT_ROOM_ID),
+    queryFn: () => getMessagesUseCase.execute(Number(chatRoomId)),
     queryKey: [QueryKeys.Messages],
   });
 
-  console.log("ERROR", error);
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
@@ -52,7 +49,7 @@ export function useChatRoomViewModel({
     try {
       if (session && session.user && messageText.trim() !== "") {
         const response = await sendMessageUseCase.execute({
-          chatRoomId: CHAT_ROOM_ID,
+          chatRoomId: Number(chatRoomId),
           content: messageText,
           userId: session.user.id,
         });
@@ -68,6 +65,7 @@ export function useChatRoomViewModel({
     send,
     isLoading,
     messages,
+    error,
     userId: session?.user.id ?? "",
     title: title as string,
     imageUrl: imageUrl as string,

@@ -16,7 +16,7 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
-    authService.getSession().then((_session) => {
+    authService.fetchSession().then((_session) => {
       setSession(_session);
       setTimeout(() => {
         setLoading(false);

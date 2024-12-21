@@ -40,6 +40,7 @@ export function HomeView({ viewModel }: Props) {
         }}
         contentContainerStyle={{
           marginTop: headerHeight,
+          gap: 20,
         }}
         data={viewModel.rooms}
         renderItem={({ item }) => (
