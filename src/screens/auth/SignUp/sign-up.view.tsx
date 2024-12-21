@@ -13,6 +13,16 @@ export function SignUpView({ viewModel }: Props) {
         <AnimatedFadeEntrance entrance="up">
           <FormInput
             control={viewModel.control}
+            name="username"
+            placeholder="@ Username"
+            leftIconProps={{
+              iconName: "user",
+            }}
+          />
+        </AnimatedFadeEntrance>
+        <AnimatedFadeEntrance entrance="up">
+          <FormInput
+            control={viewModel.control}
             name="email"
             placeholder="Email"
             leftIconProps={{

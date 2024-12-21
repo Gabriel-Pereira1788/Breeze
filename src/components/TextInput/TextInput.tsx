@@ -31,7 +31,7 @@ export function TextInput(props: TextInputProps) {
         justifyContent="space-between"
         px="sp20"
         borderRadius="rd30"
-        height={64}
+        height={textInputProps.multiline ? 200 : 64}
         shadowOffset={{ width: 0, height: 1 }}
         shadowOpacity={0.1}
         shadowRadius={10}

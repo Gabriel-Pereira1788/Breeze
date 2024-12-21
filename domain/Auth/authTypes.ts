@@ -24,3 +24,10 @@ export interface Session {
   refreshToken: string;
   user: User;
 }
+
+export type SignUpRequest = {
+  email: string;
+  password: string;
+  phone: string;
+  username: string;
+};

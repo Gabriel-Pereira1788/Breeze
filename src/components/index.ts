@@ -5,3 +5,4 @@ export * from "./TextInput";
 export * from "./Button/Button";
 export * from "./FormInput";
 export * from "./MessageContent/MessageContent";
+export * from "./FooterTabBar/FooterTabBar";

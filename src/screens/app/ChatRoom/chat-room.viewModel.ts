@@ -1,5 +1,6 @@
 import { useSession } from "@/providers";
 import {
+  ChatRoom,
   GetMessagesUseCase,
   Message,
   messagesService,
@@ -7,7 +8,8 @@ import {
 } from "@domain";
 import { QueryKeys } from "@infra";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useLocalSearchParams } from "expo-router/build/hooks";
+import { useEffect, useState } from "react";
 
 type Props = {
   sendMessageUseCase: SendMessageUseCase;
@@ -21,6 +23,7 @@ export function useChatRoomViewModel({
   getMessagesUseCase,
 }: Props) {
   const { session } = useSession();
+  const { chatRoomId, title, imageUrl } = useLocalSearchParams();
 
   const { data, isLoading, error } = useQuery({
     queryFn: () => getMessagesUseCase.execute(CHAT_ROOM_ID),
@@ -66,6 +69,8 @@ export function useChatRoomViewModel({
     isLoading,
     messages,
     userId: session?.user.id ?? "",
+    title: title as string,
+    imageUrl: imageUrl as string,
   };
 }
 

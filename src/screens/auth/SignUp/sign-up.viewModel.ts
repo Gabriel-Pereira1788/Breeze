@@ -10,6 +10,7 @@ type Props = {
 export function useSignUpViewModel({ signUpUseCase }: Props) {
   const { control, handleSubmit, formState } = useForm<SignUpSchema>({
     defaultValues: {
+      username: "",
       email: "",
       password: "",
       phone: "",
@@ -24,6 +25,7 @@ export function useSignUpViewModel({ signUpUseCase }: Props) {
         email: variables.email,
         password: variables.password,
         phone: variables.phone,
+        username: variables.username,
       }),
     onSuccess: (data) => {
       console.log("SIGN-UP-DATA", data);

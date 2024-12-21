@@ -1,15 +1,10 @@
 import { authService } from "../authService";
-
-type SignUpRequest = {
-  email: string;
-  password: string;
-  phone: string;
-};
+import { SignUpRequest } from "../authTypes";
 
 export function SignUpUseCaseFactory() {
   return {
-    execute: async ({ email, password, phone }: SignUpRequest) => {
-      return await authService.signUp(email, password, phone);
+    execute: async (request: SignUpRequest) => {
+      return await authService.signUp(request);
     },
   };
 }

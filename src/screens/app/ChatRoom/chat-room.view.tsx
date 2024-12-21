@@ -1,9 +1,11 @@
-import { Box, MessageContent, TextInput } from "@/components";
+import { Box, MessageContent } from "@/components";
 import { ChatRoomViewModel } from "./chat-room.viewModel";
 
 import { If } from "@/helpers";
 import { FlatList } from "react-native";
 import { SendInput } from "./components/SendInput";
+import { Stack } from "expo-router";
+import { ChatRoomHeader } from "./components";
 
 type Props = {
   viewModel: ChatRoomViewModel;
@@ -11,7 +13,22 @@ type Props = {
 
 export function ChatRoomView({ viewModel }: Props) {
   return (
-    <Box flex={1} alignItems="center" justifyContent="center">
+    <Box
+      flex={1}
+      alignItems="center"
+      justifyContent="center"
+      paddingHorizontal="sp28"
+    >
+      <Stack.Screen
+        options={{
+          header: () => (
+            <ChatRoomHeader
+              imageUrl={viewModel.imageUrl}
+              title={viewModel.title}
+            />
+          ),
+        }}
+      />
       <Box flex={1} width={"100%"}>
         <If condition={!!viewModel.messages && viewModel.messages.length > 0}>
           <FlatList
@@ -24,6 +41,7 @@ export function ChatRoomView({ viewModel }: Props) {
             contentContainerStyle={{
               gap: 15,
               paddingBottom: 50,
+              paddingTop: 150,
             }}
             renderItem={({ item }) => {
               return (

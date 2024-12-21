@@ -3,6 +3,9 @@
     "name": "Breeze",
     "slug": "Breeze",
     "version": "1.0.0",
+    "ios": {
+      "supportsTablet": true
+    },
     "plugins": [
       "expo-router"
     ]

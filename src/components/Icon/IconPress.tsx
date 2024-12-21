@@ -6,12 +6,14 @@ export type IconPressProps = {
   onPress?: () => void;
   testID?: string;
   variant?: "filled" | "transparent";
+  activeOpacity?: number;
 } & IconProps;
 
 export function IconPress({
   onPress,
   testID,
   variant = "filled",
+  activeOpacity,
   ...iconProps
 }: IconPressProps) {
   const boxProps: BoxProps | undefined =
@@ -32,7 +34,7 @@ export function IconPress({
   return (
     <TouchableOpacityBox
       onPress={onPress}
-      activeOpacity={0.8}
+      activeOpacity={activeOpacity ?? 0.8}
       testID={testID}
       boxProps={boxProps}
     >

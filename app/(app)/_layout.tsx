@@ -1,33 +1,16 @@
-import React from "react";
-import { Box } from "@/components";
-import { palette } from "@/styles";
-import { Redirect, Stack } from "expo-router";
-import { useSession } from "@/providers";
-import { useAppSafeArea } from "@/helpers";
+import { Stack } from "expo-router";
 
 export default function AppLayout() {
-  const { bottom } = useAppSafeArea();
   return (
-    <Stack
-      screenLayout={({ children }) => (
-        <Box
-          paddingHorizontal="sp23"
-          style={{ paddingBottom: bottom }}
-          flex={1}
-          justifyContent="center"
-          backgroundColor="background"
-        >
-          {children}
-        </Box>
-      )}
-      screenOptions={{
-        statusBarStyle: "light",
-        headerTitle: "",
-        headerShadowVisible: false,
-        headerStyle: {
-          backgroundColor: palette.background,
-        },
-      }}
-    />
+    <Stack screenOptions={{ headerShown: false, headerShadowVisible: false }}>
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="chats" />
+      <Stack.Screen
+        name="new-room"
+        options={{
+          presentation: "modal",
+        }}
+      />
+    </Stack>
   );
 }
