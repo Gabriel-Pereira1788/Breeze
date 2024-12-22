@@ -29,6 +29,7 @@ export function Button({
   return (
     <TouchableOpacityBox
       boxProps={{
+        width: "100%",
         borderRadius: "rd30",
         alignItems: "center",
         justifyContent: "center",

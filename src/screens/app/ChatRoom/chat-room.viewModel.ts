@@ -25,7 +25,7 @@ export function useChatRoomViewModel({
 
   const { data, isLoading, error } = useQuery({
     queryFn: () => getMessagesUseCase.execute(Number(chatRoomId)),
-    queryKey: [QueryKeys.Messages],
+    queryKey: [QueryKeys.Messages, chatRoomId],
   });
 
   const [messages, setMessages] = useState<Message[]>([]);

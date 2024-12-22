@@ -14,7 +14,7 @@ export function TouchableOpacityBox({
   ...rest
 }: ITouchableOpacityBoxProps) {
   return (
-    <TouchableOpacity {...rest}>
+    <TouchableOpacity {...rest} style={{ width: boxProps?.width }}>
       <Box {...boxProps}>{children && children}</Box>
     </TouchableOpacity>
   );

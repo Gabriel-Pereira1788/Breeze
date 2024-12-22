@@ -19,6 +19,8 @@ import X from "phosphor-react-native/src/icons/X";
 import Phone from "phosphor-react-native/src/icons/Phone";
 import PaperPlaneRight from "phosphor-react-native/src/icons/PaperPlaneRight";
 import Plus from "phosphor-react-native/src/icons/Plus";
+import SignOut from "phosphor-react-native/src/icons/SignOut";
+import Notification from "phosphor-react-native/src/icons/Notification";
 import { IconProps } from "../Icon";
 
 export const mappedIcons = {
@@ -42,6 +44,8 @@ export const mappedIcons = {
   phone: Phone,
   paperPlaneRight: PaperPlaneRight,
   plus: Plus,
+  signOut: SignOut,
+  notification: Notification,
   x: X,
 };
 

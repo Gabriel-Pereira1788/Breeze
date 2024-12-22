@@ -38,9 +38,11 @@ async function fetchSession() {
   const { data, error } = await supabase.auth.getSession();
 
   if (error) throw new Error(error.message);
+
   const session = data.session
     ? authAdapter.toValidSession(data.session)
     : null;
+
   inMemorySession = session;
   return session;
 }

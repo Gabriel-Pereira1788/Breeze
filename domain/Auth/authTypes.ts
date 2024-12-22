@@ -2,6 +2,8 @@ export interface User {
   id: string;
   email?: string;
   role?: string;
+  avatarUrl?: string;
+  username?: string;
 }
 
 export interface UserApi {
@@ -10,6 +12,8 @@ export interface UserApi {
   created_at?: string;
   role?: string;
   updated_at?: string;
+  avatar_url?: string;
+  username?: string;
 }
 
 export interface SessionApi {

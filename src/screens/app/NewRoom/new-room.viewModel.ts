@@ -1,14 +1,12 @@
 import { useForm } from "react-hook-form";
 import { roomSchema, RoomSchema } from "./new-room.model";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as ImagePicker from "expo-image-picker";
-import { useState } from "react";
 import { CreateRoomUseCase, NewRoomRequest } from "@domain";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QueryKeys } from "@infra";
 import { router } from "expo-router";
-import * as FileSystem from "expo-file-system";
-import { storageBucket } from "@/services";
+
+import { fs, storageBucket, useGetImageLibrary } from "@/services";
 
 type Props = {
   createRoomUseCase: CreateRoomUseCase;
@@ -37,25 +35,13 @@ export function useNewRoomViewModel({ createRoomUseCase }: Props) {
     resolver: zodResolver(roomSchema),
   });
 
-  const [image, setImage] = useState<ImagePicker.ImagePickerAsset | null>(null);
-
-  async function openLibrary() {
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: "images",
-      allowsEditing: true,
-    });
-
-    if (!result.canceled) {
-      setImage(result.assets[0]);
-    }
-  }
+  const { image, pickImage } = useGetImageLibrary();
 
   async function onSubmit(roomData: RoomSchema) {
     if (image && image.uri) {
       try {
-        const base64 = await FileSystem.readAsStringAsync(image.uri, {
-          encoding: "base64",
-        });
+        const base64 = await fs.readingInBase64File(image.uri);
+
         const path = `${new Date().getTime()}.png`;
         const imageUrl = await storageBucket.sendFile({
           path,
@@ -76,10 +62,10 @@ export function useNewRoomViewModel({ createRoomUseCase }: Props) {
   }
 
   return {
-    image: image?.uri,
     control,
+    pickImage,
+    image: image?.uri,
     isValidForm: formState.isValid,
-    openLibrary,
     onSubmit: handleSubmit(onSubmit),
     loadingSubmit: isLoading,
   };
