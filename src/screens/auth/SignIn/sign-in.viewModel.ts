@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema, SignInSchema } from "./sign-in.model";
 import { router } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
-import { SignInUseCase, User } from "@domain";
+import { Session, SignInUseCase } from "@domain";
 
 type Props = {
   signInUseCase: SignInUseCase;
@@ -19,7 +19,11 @@ export function useSignInViewModel({ signInUseCase }: Props) {
     resolver: zodResolver(signInSchema),
   });
 
-  const { mutate, isLoading } = useMutation<User | null, Error, SignInSchema>({
+  const { mutate, isLoading } = useMutation<
+    Session | null,
+    Error,
+    SignInSchema
+  >({
     mutationFn: (variables) =>
       signInUseCase.execute(variables.email, variables.password),
     onSuccess: (data) => {

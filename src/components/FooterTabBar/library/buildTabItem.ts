@@ -13,6 +13,5 @@ const mappedScreenToProps: Record<
   },
 };
 export function buildTabItem(routeName: KeyTabParamList) {
-  console.log("ROUTE-NAME", routeName);
   return mappedScreenToProps[routeName];
 }

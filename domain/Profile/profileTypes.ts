@@ -1,7 +1,8 @@
 export interface Profile {
   avatarUrl?: string;
   id: string;
-  username: string;
+  username?: string;
+  email?: string;
 }
 
 export interface ProfileApi {
@@ -9,5 +10,12 @@ export interface ProfileApi {
   full_name?: string;
   id: string;
   updated_at?: string;
+  email: string;
   username: string;
+}
+
+export interface ProfileRequest {
+  username: string;
+  email: string;
+  avatarUrl: string;
 }

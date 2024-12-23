@@ -27,6 +27,7 @@ async function signUp({ email, password, phone, username }: SignUpRequest) {
   const { error: userError } = await supabase.from("profiles").upsert({
     id: data.user?.id,
     username: username,
+    email: email,
   });
 
   if (userError) throw new Error(userError.message);
@@ -59,9 +60,16 @@ function getInMemorySession() {
   return inMemorySession;
 }
 
+async function signOut() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
+
+  console.log("SignOutError", error);
+}
 export const authService = {
   signIn,
   signUp,
+  signOut,
   fetchSession,
   onAuthStateChanged,
   getInMemorySession,

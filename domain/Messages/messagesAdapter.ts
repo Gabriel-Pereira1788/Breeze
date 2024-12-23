@@ -1,4 +1,8 @@
+import { Profile } from "../Profile/profileTypes";
+
+import { profileAdapter } from "../Profile/profileAdapter";
 import { Message, MessageApi, MessageRequest } from "./messagesTypes";
+import { User } from "../Auth";
 
 function toMessage(messageApi: MessageApi): Message {
   return {
@@ -7,6 +11,7 @@ function toMessage(messageApi: MessageApi): Message {
     createdAt: messageApi.created_at,
     id: messageApi.id,
     userId: messageApi.user_id,
+    user: profileAdapter.toProfileData(messageApi.profiles),
   };
 }
 
@@ -18,13 +23,15 @@ function buildMessage({
   chatRoomId,
   content,
   userId,
-}: MessageRequest): Message {
+  user,
+}: MessageRequest & { user: User }): Message {
   return {
     chatRoomId,
     content,
     userId,
     id: new Date().getTime(),
     createdAt: new Date().toString(),
+    user,
   };
 }
 

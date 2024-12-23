@@ -5,6 +5,7 @@ function toProfileData(profileApi: ProfileApi): Profile {
     id: profileApi.id,
     username: profileApi.username,
     avatarUrl: profileApi.avatar_url,
+    email: profileApi.email,
   };
 }
 

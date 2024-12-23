@@ -1,4 +1,4 @@
-import { Box, Button, Text } from "@/components";
+import { Box, Button, Text, TouchableOpacityBox } from "@/components";
 import { ActivityIndicator, FlatList } from "react-native";
 import { options, ProfileViewProps } from "./profile.model";
 import { ProfileImage } from "./components";
@@ -12,6 +12,7 @@ export function ProfileView({ viewModel }: ProfileViewProps) {
       </Box>
     );
   }
+
   return (
     <Box
       flex={1}
@@ -20,7 +21,20 @@ export function ProfileView({ viewModel }: ProfileViewProps) {
       alignItems="center"
       justifyContent="center"
     >
-      <ProfileImage imageUrl={viewModel.profile?.avatarUrl} />
+      <Box gap="sp10" alignItems="center" mb="sp20">
+        <ProfileImage imageUrl={viewModel.profile?.avatarUrl} />
+        <Text
+          text={`@${viewModel.profile?.username ?? ""}`}
+          preset="medium/14"
+          color="neutralGray500"
+        />
+        <Text
+          text={viewModel.profile?.email ?? ""}
+          preset="medium/14"
+          color="neutralGray500"
+        />
+      </Box>
+
       <Box width={"100%"} alignItems="center" my="sp20">
         <FlatList
           data={options}
@@ -36,19 +50,27 @@ export function ProfileView({ viewModel }: ProfileViewProps) {
             <Box height={1} my="sp15" backgroundColor="neutralGray300" />
           )}
           renderItem={({ item }) => (
-            <Box
-              flexDirection="row"
-              gap="sp10"
-              width={"100%"}
-              alignItems="center"
+            <TouchableOpacityBox
+              onPress={() => viewModel.redirectByRouteName(item.routeName)}
+              boxProps={{
+                flexDirection: "row",
+                gap: "sp10",
+                width: "100%",
+                alignItems: "center",
+              }}
             >
               <Icon iconName={item.iconName} size={25} />
               <Text text={item.title} preset="medium/16" />
-            </Box>
+            </TouchableOpacityBox>
           )}
         />
       </Box>
-      <Button text="Logout" rightIconName="signOut" />
+      <Button
+        text="Logout"
+        rightIconName="signOut"
+        loading={viewModel.isLoadingSignOut}
+        onPress={viewModel.onSignOut}
+      />
     </Box>
   );
 }

@@ -4,6 +4,6 @@ export * from "./TouchableOpacityBox/TouchableOpacityBox";
 export * from "./TextInput";
 export * from "./Button/Button";
 export * from "./FormInput";
-export * from "./MessageContent/MessageContent";
 export * from "./FooterTabBar/FooterTabBar";
 export * from "./InsertImage/InsertImage";
+export * from "./Avatar/Avatar";

@@ -3,7 +3,6 @@ import { Box, Text } from "@/components";
 import { palette } from "@/styles";
 import { Redirect, Stack } from "expo-router";
 import { useSession } from "@/providers";
-import { ScrollView } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 export default function AuthLayout() {

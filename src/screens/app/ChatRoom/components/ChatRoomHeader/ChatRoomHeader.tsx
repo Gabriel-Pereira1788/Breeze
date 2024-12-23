@@ -1,4 +1,4 @@
-import { Box, Text } from "@/components";
+import { Avatar, Box, Text } from "@/components";
 import { If, useAppSafeArea } from "@/helpers";
 import { BlurView } from "expo-blur";
 import { Image } from "react-native";
@@ -6,8 +6,10 @@ import { Image } from "react-native";
 type Props = {
   imageUrl: string;
   title: string;
+  userImageUrls: string[];
 };
-export function ChatRoomHeader({ imageUrl, title }: Props) {
+
+export function ChatRoomHeader({ imageUrl, title, userImageUrls }: Props) {
   const { top } = useAppSafeArea();
   return (
     <Box position="absolute" marginBottom="sp28">
@@ -28,30 +30,25 @@ export function ChatRoomHeader({ imageUrl, title }: Props) {
           justifyContent="space-between"
         >
           <If condition={!!imageUrl}>
-            <Box overflow="hidden" borderRadius="rd100">
-              <Image
-                source={{
-                  uri: imageUrl,
-                }}
-                style={{
-                  width: 65,
-                  height: 65,
-                }}
-                resizeMode="cover"
-              />
-            </Box>
+            <Avatar size={65} url={imageUrl} />
           </If>
           <Box gap="sp10" justifyContent="center">
             <Text text={title} preset="medium/16" />
-            <Text
-              text={"Alice is typing..."}
-              preset="regular/14"
-              color="neutralGray400"
-            />
           </Box>
         </Box>
         <Box flex={1} justifyContent="flex-end" flexDirection="row">
-          <Text text="Persons" />
+          {userImageUrls &&
+            userImageUrls.map((url, index) => (
+              <Box
+                alignItems="center"
+                justifyContent="center"
+                style={{
+                  transform: [{ translateX: index > 0 ? -20 : 0 }],
+                }}
+              >
+                <Avatar key={index} size={30} url={url} />
+              </Box>
+            ))}
         </Box>
       </Box>
       <Box position="absolute" width={"100%"} height={"100%"} overflow="hidden">

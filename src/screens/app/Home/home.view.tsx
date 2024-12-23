@@ -1,9 +1,9 @@
-import { Box, Text, TouchableOpacityBox } from "@/components";
+import { Box } from "@/components";
 import { HomeViewModel } from "./home.viewModel";
 import { FlatList } from "react-native";
-import { ChatRoomItem, HomeListHeader } from "./components";
+import { ChatRoomItem } from "./components";
 import { useHeaderHeight } from "@react-navigation/elements";
-import { Icon, IconPress } from "@/components/Icon";
+import { IconPress } from "@/components/Icon";
 import { router, useNavigation } from "expo-router";
 import { useEffect } from "react";
 type Props = {
@@ -23,7 +23,6 @@ export function HomeView({ viewModel }: Props) {
           activeOpacity={0.3}
           onPress={() => {
             router.navigate("new-room");
-            console.log("Click");
           }}
         />
       ),

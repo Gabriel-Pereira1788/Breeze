@@ -9,7 +9,8 @@ import {
 import { QueryKeys } from "@infra";
 import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams } from "expo-router/build/hooks";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { buildAvatars } from "./library";
 
 type Props = {
   sendMessageUseCase: SendMessageUseCase;
@@ -29,6 +30,10 @@ export function useChatRoomViewModel({
   });
 
   const [messages, setMessages] = useState<Message[]>([]);
+  const userImageUrls = useMemo(
+    () => buildAvatars(messages, session?.user.id),
+    [messages]
+  );
 
   useEffect(() => {
     let chatEvent: { unsubscribe: () => void } | undefined;
@@ -65,6 +70,7 @@ export function useChatRoomViewModel({
     send,
     isLoading,
     messages,
+    userImageUrls,
     error,
     userId: session?.user.id ?? "",
     title: title as string,

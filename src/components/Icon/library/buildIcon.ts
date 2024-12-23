@@ -21,6 +21,7 @@ import PaperPlaneRight from "phosphor-react-native/src/icons/PaperPlaneRight";
 import Plus from "phosphor-react-native/src/icons/Plus";
 import SignOut from "phosphor-react-native/src/icons/SignOut";
 import Notification from "phosphor-react-native/src/icons/Notification";
+
 import { IconProps } from "../Icon";
 
 export const mappedIcons = {
@@ -46,6 +47,7 @@ export const mappedIcons = {
   plus: Plus,
   signOut: SignOut,
   notification: Notification,
+
   x: X,
 };
 

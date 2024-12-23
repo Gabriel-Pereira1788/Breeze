@@ -1,11 +1,11 @@
-import { Box, MessageContent } from "@/components";
+import { Box } from "@/components";
 import { ChatRoomViewModel } from "./chat-room.viewModel";
 
 import { If } from "@/helpers";
 import { FlatList } from "react-native";
 import { SendInput } from "./components/SendInput";
 import { Stack } from "expo-router";
-import { ChatRoomHeader } from "./components";
+import { ChatRoomHeader, MessageContent } from "./components";
 
 type Props = {
   viewModel: ChatRoomViewModel;
@@ -25,6 +25,7 @@ export function ChatRoomView({ viewModel }: Props) {
             <ChatRoomHeader
               imageUrl={viewModel.imageUrl}
               title={viewModel.title}
+              userImageUrls={viewModel.userImageUrls}
             />
           ),
         }}

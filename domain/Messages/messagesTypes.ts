@@ -1,3 +1,5 @@
+import { Profile, ProfileApi } from "../Profile/profileTypes";
+
 export interface MessageRequest {
   chatRoomId: number;
   content: string;
@@ -10,6 +12,7 @@ export interface Message {
   createdAt: string;
   id: number;
   userId: string;
+  user: Profile;
 }
 
 export interface MessageApi {
@@ -18,4 +21,5 @@ export interface MessageApi {
   created_at: string;
   id: number;
   user_id: string;
+  profiles: ProfileApi;
 }

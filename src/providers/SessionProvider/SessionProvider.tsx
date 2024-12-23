@@ -11,6 +11,10 @@ const SessionContext = createContext<ISessionContext>({
   loading: true,
 });
 
+const SessionContextActions = createContext<{ clearSession: () => void }>({
+  clearSession: () => {},
+});
+
 export function SessionProvider({ children }: React.PropsWithChildren) {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
@@ -31,13 +35,23 @@ export function SessionProvider({ children }: React.PropsWithChildren) {
     });
   }, []);
 
+  function clearSession() {
+    setSession(null);
+  }
+
   return (
-    <SessionContext.Provider value={{ session, loading }}>
-      {children}
-    </SessionContext.Provider>
+    <SessionContextActions.Provider value={{ clearSession }}>
+      <SessionContext.Provider value={{ session, loading }}>
+        {children}
+      </SessionContext.Provider>
+    </SessionContextActions.Provider>
   );
 }
 
 export function useSession() {
   return useContext(SessionContext);
+}
+
+export function useSessionActions() {
+  return useContext(SessionContextActions);
 }
