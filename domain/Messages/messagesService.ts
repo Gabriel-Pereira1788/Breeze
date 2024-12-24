@@ -2,6 +2,7 @@ import { supabase } from "@infra";
 import { Message, MessageApi, MessageRequest } from "./messagesTypes";
 import { messagesAdapter } from "./messagesAdapter";
 import { authService } from "../Auth";
+import { Profile, ProfileApi } from "domain/Profile/profileTypes";
 
 async function sendMessage({
   chatRoomId,
@@ -57,9 +58,25 @@ function onReceiveMessage(event: (payload: Message) => void) {
         schema: "public",
         table: "messages",
       },
-      (payload) => {
+      async (payload) => {
         const response = payload.new as MessageApi;
-        event(messagesAdapter.toMessage(response));
+
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", response.user_id);
+
+        if (!data) {
+          console.log("Error on get profile");
+          return;
+        }
+
+        event(
+          messagesAdapter.toMessage({
+            ...response,
+            profiles: data[0] as ProfileApi,
+          })
+        );
       }
     )
     .subscribe();

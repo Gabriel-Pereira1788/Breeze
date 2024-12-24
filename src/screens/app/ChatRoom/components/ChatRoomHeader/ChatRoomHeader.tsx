@@ -40,13 +40,14 @@ export function ChatRoomHeader({ imageUrl, title, userImageUrls }: Props) {
           {userImageUrls &&
             userImageUrls.map((url, index) => (
               <Box
+                key={index}
                 alignItems="center"
                 justifyContent="center"
                 style={{
                   transform: [{ translateX: index > 0 ? -20 : 0 }],
                 }}
               >
-                <Avatar key={index} size={30} url={url} />
+                <Avatar size={30} url={url} />
               </Box>
             ))}
         </Box>
