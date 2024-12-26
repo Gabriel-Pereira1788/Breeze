@@ -38,7 +38,24 @@ async function createRoom({ name, description, imageUrl }: NewRoomRequest) {
   return null;
 }
 
+async function searchByText(text: string) {
+  const { data: rooms, error } = await supabase
+    .from("chat_rooms")
+    .select("*")
+    .ilike("name", `%${text}%`)
+    .order("created_at", {
+      ascending: true,
+    });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return rooms ? roomAdapter.toChatRoomList(rooms) : [];
+}
+
 export const roomService = {
   getRooms,
   createRoom,
+  searchByText,
 };
