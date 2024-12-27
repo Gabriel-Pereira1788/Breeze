@@ -3,39 +3,24 @@ import { HomeViewModel } from "./home.viewModel";
 import { FlatList } from "react-native";
 import { ChatRoomItem } from "./components";
 import { useHeaderHeight } from "@react-navigation/elements";
-import { IconPress } from "@/components/Icon";
-import { router, Stack, useNavigation } from "expo-router";
-import { useEffect } from "react";
+
+import { Stack } from "expo-router";
+
 type Props = {
   viewModel: HomeViewModel;
 };
 
 export function HomeView({ viewModel }: Props) {
   const headerHeight = useHeaderHeight();
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <IconPress
-          iconName="plus"
-          variant="transparent"
-          activeOpacity={0.3}
-          onPress={() => {
-            router.navigate("new-room");
-          }}
-        />
-      ),
-    });
-  }, []);
 
   return (
-    <Box flex={1} alignItems="center" justifyContent="center">
+    <Box flex={1} alignItems="center" justifyContent="center" pt="sp20">
       <Stack.Screen
         options={{
           headerTitle: "Chats",
           headerTransparent: true,
           headerBlurEffect: "light",
+          headerTintColor: "#000",
           headerSearchBarOptions: {
             placeholder: "Search",
             shouldShowHintSearchIcon: false,

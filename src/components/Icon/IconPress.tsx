@@ -1,11 +1,15 @@
 import { Icon, IconProps } from "./Icon";
 import { TouchableOpacityBox } from "../TouchableOpacityBox/TouchableOpacityBox";
 import { BoxProps } from "../Box/Box";
+import { buildVariant } from "./library/buildVariant";
+import { Theme } from "@/styles";
 
 export type IconPressProps = {
   onPress?: () => void;
   testID?: string;
-  variant?: "filled" | "transparent";
+  variant?: "filled" | "transparent" | "rounded";
+  backgroundColor?: keyof Theme["colors"];
+  tintColor?: keyof Theme["colors"];
   activeOpacity?: number;
 } & IconProps;
 
@@ -14,31 +18,23 @@ export function IconPress({
   testID,
   variant = "filled",
   activeOpacity,
+  backgroundColor,
+  tintColor,
   ...iconProps
 }: IconPressProps) {
-  const boxProps: BoxProps | undefined =
-    variant === "filled"
-      ? {
-          backgroundColor: "neutralWhite",
-          padding: "sp12",
-          borderRadius: "rd12",
-          alignItems: "center",
-          justifyContent: "center",
-          shadowOffset: { width: 0, height: 1 },
-          shadowOpacity: 0.2,
-          shadowRadius: 2,
-          shadowColor: "neutralGray500",
-          elevation: 2,
-        }
-      : undefined;
+  const boxProps: BoxProps | undefined = buildVariant(variant);
+
   return (
     <TouchableOpacityBox
       onPress={onPress}
       activeOpacity={activeOpacity ?? 0.8}
       testID={testID}
-      boxProps={boxProps}
+      boxProps={{
+        ...boxProps,
+        backgroundColor: backgroundColor ?? boxProps?.backgroundColor,
+      }}
     >
-      <Icon {...iconProps} />
+      <Icon {...iconProps} color={tintColor} />
     </TouchableOpacityBox>
   );
 }

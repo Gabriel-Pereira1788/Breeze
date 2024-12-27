@@ -58,7 +58,7 @@ export function FooterTabItem({
       <If condition={focused}>
         <Animated.View
           entering={BounceIn}
-          style={{ position: "absolute", bottom: -8, zIndex: 10 }}
+          style={{ position: "absolute", bottom: 0, zIndex: 10 }}
         >
           <Box borderRadius={"rd100"} p="sp3" backgroundColor="secondaryMain" />
         </Animated.View>

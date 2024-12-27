@@ -20,11 +20,7 @@ export const options: Option[] = [
     iconName: "user",
     title: "Edit Profile",
   },
-  {
-    routeName: "notifications",
-    iconName: "notification",
-    title: "Notifications",
-  },
+
   {
     routeName: "settings",
     iconName: "gear",
