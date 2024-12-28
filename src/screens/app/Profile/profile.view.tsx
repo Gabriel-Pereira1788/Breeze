@@ -66,6 +66,7 @@ export function ProfileView({ viewModel }: ProfileViewProps) {
         />
       </Box>
       <Button
+        enableGradient
         text="Logout"
         rightIconName="signOut"
         loading={viewModel.isLoadingSignOut}

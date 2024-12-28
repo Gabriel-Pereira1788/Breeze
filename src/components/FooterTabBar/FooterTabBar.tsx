@@ -113,11 +113,11 @@ export function FooterTabBar({ state, navigation }: BottomTabBarProps) {
       </Box>
       <Box position="absolute" top={-10}>
         <IconPress
+          size={28}
+          enableGradient
           iconName="plus"
           variant="rounded"
-          backgroundColor="primaryMain"
           tintColor="neutralWhite"
-          size={28}
           onPress={() => router.push("new-room")}
         />
       </Box>

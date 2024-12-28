@@ -1,20 +1,30 @@
-import React from "react";
-import { Box, Text } from "@/components";
+import React, { useState } from "react";
+import { Box } from "@/components";
 import { palette } from "@/styles";
 import { Redirect, Stack } from "expo-router";
 import { useSession } from "@/providers";
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
+import { Logo } from "@/assets";
+import { AnimatedSplashScreen } from "@/splash-screen/AnimatedSplashScreen";
+import { settingsService } from "@/services";
 
 export default function AuthLayout() {
   const { session, loading } = useSession();
+  const [visible, setVisible] = useState(true);
 
-  if (loading)
+  if (loading || visible)
     return (
       <Box flex={1} alignItems="center" justifyContent="center">
-        <Text text="Loading..." />
+        <AnimatedSplashScreen
+          onInitializeApp={async () => {
+            setVisible(false);
+            settingsService.hideSplashScreen();
+          }}
+        />
       </Box>
     );
-  if (session) return <Redirect href={"home"} />;
+
+  if (session && !visible) return <Redirect href={"home"} />;
 
   return (
     <Stack
@@ -30,6 +40,9 @@ export default function AuthLayout() {
             padding: 40,
           }}
         >
+          <Box alignItems="center" justifyContent="center">
+            <Logo width={400} height={150} />
+          </Box>
           {children}
         </KeyboardAwareScrollView>
       )}

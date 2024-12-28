@@ -2,13 +2,13 @@ import { BoxProps } from "@/components/Box/Box";
 import { IconPressProps } from "../IconPress";
 
 export function buildVariant(
-  variant: IconPressProps["variant"]
+  variant: IconPressProps["variant"],
+  enableGradient?: boolean
 ): BoxProps | undefined {
   switch (variant) {
     case "filled":
       return {
-        backgroundColor: "neutralWhite",
-        padding: "sp12",
+        backgroundColor: !enableGradient ? "neutralWhite" : undefined,
         borderRadius: "rd12",
         alignItems: "center",
         justifyContent: "center",
@@ -17,13 +17,14 @@ export function buildVariant(
         shadowRadius: 2,
         shadowColor: "neutralGray500",
         elevation: 2,
+        width: 50,
+        height: 50,
       };
     case "transparent":
       return undefined;
     case "rounded":
       return {
         backgroundColor: "neutralWhite",
-        padding: "sp12",
         borderRadius: "rd100",
         alignItems: "center",
         justifyContent: "center",
@@ -32,6 +33,8 @@ export function buildVariant(
         shadowRadius: 2,
         shadowColor: "neutralGray500",
         elevation: 2,
+        height: 50,
+        width: 50,
       };
   }
 }

@@ -10,7 +10,6 @@ export function buildVariant(variant: ButtonProps["variant"]): {
     case "filled":
       return {
         container: {
-          bg: "primaryMain",
           height: 64,
           width: "100%",
         },

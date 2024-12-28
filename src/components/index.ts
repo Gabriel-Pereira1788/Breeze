@@ -1,4 +1,4 @@
-export * from "./Box/Box";
+export * from "./Box";
 export * from "./Text/Text";
 export * from "./TouchableOpacityBox/TouchableOpacityBox";
 export * from "./TextInput";

@@ -1,3 +1,4 @@
+import React from "react";
 import { Box, Button, FormInput, FormInputSecurity, Text } from "@/components";
 import { SignInViewModel } from "./sign-in.viewModel";
 import { AnimatedFadeEntrance } from "@/animations";
@@ -8,7 +9,7 @@ type Props = {
 
 export function SignInView({ viewModel }: Props) {
   return (
-    <Box flex={1} alignItems="center" justifyContent="center">
+    <>
       <Box gap="sp10" width={"100%"}>
         <AnimatedFadeEntrance entrance="up">
           <FormInput
@@ -33,6 +34,7 @@ export function SignInView({ viewModel }: Props) {
         <AnimatedFadeEntrance entrance="down">
           <Button
             text="Login"
+            enableGradient
             disabled={!viewModel.isValidForm}
             loading={viewModel.isLoading}
             onPress={viewModel.onSubmit}
@@ -58,6 +60,6 @@ export function SignInView({ viewModel }: Props) {
           onPress={viewModel.redirectToSignUpScreen}
         />
       </Box>
-    </Box>
+    </>
   );
 }

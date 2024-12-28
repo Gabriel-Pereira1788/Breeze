@@ -25,6 +25,7 @@ export function NewRoomView({ viewModel }: NewRoomScreenProps) {
         <Box mt="sp10" width={"100%"}>
           <Button
             text="Create"
+            enableGradient
             disabled={viewModel.loadingSubmit || viewModel.isValidForm}
             onPress={viewModel.onSubmit}
           />

@@ -7,13 +7,14 @@ import { buildVariant } from "./library";
 import { TouchableOpacityBox } from "../TouchableOpacityBox/TouchableOpacityBox";
 import { Text } from "../Text/Text";
 import { Icon, IconName } from "../Icon";
-import { Box } from "../Box/Box";
+import { ButtonContainer } from "./ButtonContainer";
 
 export type ButtonProps = {
   text: string;
   loading?: boolean;
   variant?: "outline" | "filled" | "transparent";
   rightIconName?: IconName;
+  enableGradient?: boolean;
 } & TouchableOpacityProps;
 
 export function Button({
@@ -22,6 +23,7 @@ export function Button({
   variant = "filled",
   rightIconName,
   disabled,
+  enableGradient,
   ...touchableOpacityProps
 }: ButtonProps) {
   const _variant = buildVariant(variant);
@@ -33,6 +35,7 @@ export function Button({
         borderRadius: "rd30",
         alignItems: "center",
         justifyContent: "center",
+        overflow: "hidden",
         opacity: loading || disabled ? 0.7 : 1,
         ..._variant.container,
       }}
@@ -40,11 +43,14 @@ export function Button({
       disabled={loading}
       {...touchableOpacityProps}
     >
-      <Box flexDirection={!!rightIconName ? "row" : "column"} gap="sp10">
+      <ButtonContainer
+        rightIconName={!!rightIconName}
+        enableGradient={enableGradient}
+      >
         <If
           condition={!!loading}
           elseRender={
-            <Text preset="medium/16" text={text} color={_variant.textColor} />
+            <Text preset="semiBold/16" text={text} color={_variant.textColor} />
           }
         >
           <ActivityIndicator size={20} />
@@ -53,7 +59,7 @@ export function Button({
         <If condition={!!rightIconName && !loading}>
           <Icon iconName={rightIconName!} color={_variant.textColor} />
         </If>
-      </Box>
+      </ButtonContainer>
     </TouchableOpacityBox>
   );
 }
