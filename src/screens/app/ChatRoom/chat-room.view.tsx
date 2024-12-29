@@ -11,6 +11,8 @@ type Props = {
   viewModel: ChatRoomViewModel;
 };
 
+const ITEM_HEIGHT = 200;
+
 export function ChatRoomView({ viewModel }: Props) {
   return (
     <Box
@@ -33,7 +35,15 @@ export function ChatRoomView({ viewModel }: Props) {
       <Box flex={1} width={"100%"}>
         <If condition={!!viewModel.messages && viewModel.messages.length > 0}>
           <FlatList
+            ref={viewModel.flatlistRef}
             data={viewModel.messages}
+            initialNumToRender={20}
+            scrollEventThrottle={1}
+            getItemLayout={(data, index) => ({
+              length: ITEM_HEIGHT,
+              offset: ITEM_HEIGHT * index,
+              index,
+            })}
             showsVerticalScrollIndicator={false}
             style={{
               flex: 1,

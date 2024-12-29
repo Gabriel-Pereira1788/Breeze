@@ -4,12 +4,15 @@ import { signInSchema, SignInSchema } from "./sign-in.model";
 import { router } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
 import { Session, SignInUseCase } from "@domain";
+import { ToasterService } from "@/services";
+import { buildToasterError } from "./library";
 
 type Props = {
   signInUseCase: SignInUseCase;
+  toasterService: ToasterService;
 };
 
-export function useSignInViewModel({ signInUseCase }: Props) {
+export function useSignInViewModel({ signInUseCase, toasterService }: Props) {
   const { control, handleSubmit, formState } = useForm<SignInSchema>({
     defaultValues: {
       email: "",
@@ -26,11 +29,9 @@ export function useSignInViewModel({ signInUseCase }: Props) {
   >({
     mutationFn: (variables) =>
       signInUseCase.execute(variables.email, variables.password),
-    onSuccess: (data) => {
-      console.log("SIGN-IN-DATA", data);
-    },
     onError: (error) => {
-      console.log("SIGN-UP-ERROR", error);
+      const { title, message } = buildToasterError(error.message);
+      toasterService.error(title, message);
     },
   });
 

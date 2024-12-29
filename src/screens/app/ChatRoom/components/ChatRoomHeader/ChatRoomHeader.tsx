@@ -54,7 +54,7 @@ export function ChatRoomHeader({ imageUrl, title, userImageUrls }: Props) {
       </Box>
       <Box position="absolute" width={"100%"} height={"100%"} overflow="hidden">
         <BlurView
-          intensity={40}
+          intensity={30}
           tint="light"
           style={{ width: "100%", height: "100%", position: "absolute" }}
         />

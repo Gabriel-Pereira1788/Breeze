@@ -5,6 +5,8 @@ import { AnimatedFadeEntrance } from "@/animations";
 import { Avatar, Box, Text } from "@/components";
 import { If } from "@/helpers";
 import { Icon } from "@/components/Icon";
+import { formatUsername } from "./library/formatUsername";
+import { formatHours } from "./library/formatHours";
 
 type Props = {
   message: Message;
@@ -12,6 +14,9 @@ type Props = {
 };
 
 export function MessageContent({ message, isUserMessage }: Props) {
+  const formatedUsername = formatUsername(message.user.username ?? "");
+  const hours = formatHours(message.createdAt);
+
   return (
     <AnimatedFadeEntrance entrance="down">
       <Box
@@ -36,17 +41,26 @@ export function MessageContent({ message, isUserMessage }: Props) {
             shadowOpacity={0.1}
             shadowRadius={2}
             borderRadius="rd12"
+            gap="sp10"
             borderBottomRightRadius={isUserMessage ? "rd4" : undefined}
             borderBottomLeftRadius={!isUserMessage ? "rd4" : undefined}
             shadowColor={"neutralBlack"}
           >
+            <If condition={!isUserMessage}>
+              <Text
+                text={formatedUsername}
+                preset="medium/10"
+                color="neutralGray600"
+              />
+            </If>
+
             <Text
               text={message.content}
               color={isUserMessage ? "neutralWhite" : "neutralBlack"}
             />
           </Box>
           <Box alignSelf={isUserMessage ? "flex-end" : "flex-start"}>
-            <Text text="5:25 pm" color="neutralGray400" preset="regular/14" />
+            <Text text={hours} color="neutralGray400" preset="regular/14" />
           </Box>
         </Box>
       </Box>

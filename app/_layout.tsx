@@ -1,11 +1,12 @@
 import { SessionProvider } from "@/providers";
+import { Global } from "@/services";
 import { theme } from "@/styles";
 import { queryClient } from "@infra";
 
 import { ThemeProvider } from "@shopify/restyle";
 import { QueryClientProvider } from "@tanstack/react-query";
 
-import { Slot, Stack } from "expo-router";
+import { Slot } from "expo-router";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 
 export default function RootLayout() {
@@ -15,6 +16,7 @@ export default function RootLayout() {
         <SessionProvider>
           <KeyboardProvider>
             <Slot />
+            <Global />
           </KeyboardProvider>
         </SessionProvider>
       </ThemeProvider>

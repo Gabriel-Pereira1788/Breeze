@@ -7,3 +7,4 @@ export * from "./FormInput";
 export * from "./FooterTabBar/FooterTabBar";
 export * from "./InsertImage/InsertImage";
 export * from "./Avatar/Avatar";
+export * from "./Toaster";

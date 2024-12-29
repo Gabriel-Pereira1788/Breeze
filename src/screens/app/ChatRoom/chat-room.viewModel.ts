@@ -1,6 +1,5 @@
 import { useSession } from "@/providers";
 import {
-  ChatRoom,
   GetMessagesUseCase,
   Message,
   messagesService,
@@ -9,8 +8,9 @@ import {
 import { QueryKeys } from "@infra";
 import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams } from "expo-router/build/hooks";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { buildAvatars } from "./library";
+import { FlatList } from "react-native";
 
 type Props = {
   sendMessageUseCase: SendMessageUseCase;
@@ -23,6 +23,8 @@ export function useChatRoomViewModel({
 }: Props) {
   const { session } = useSession();
   const { chatRoomId, title, imageUrl } = useLocalSearchParams();
+
+  const flatlistRef = useRef<FlatList>(null);
 
   const { data, isLoading, error } = useQuery({
     queryFn: () => getMessagesUseCase.execute(Number(chatRoomId)),
@@ -39,12 +41,16 @@ export function useChatRoomViewModel({
     let chatEvent: { unsubscribe: () => void } | undefined;
     if (data) {
       setMessages(data);
+
+      scrollToEnd();
+
       chatEvent = messagesService.onReceiveMessage((payload) => {
         if (payload.userId != session?.user.id) {
           setMessages((_messages) => [..._messages, payload]);
         }
       });
     }
+
     return () => {
       chatEvent?.unsubscribe();
     };
@@ -60,10 +66,19 @@ export function useChatRoomViewModel({
         });
 
         setMessages((_messages) => [..._messages, response]);
+        scrollToEnd();
       }
     } catch (error) {
       console.log("ERR", error);
     }
+  }
+
+  function scrollToEnd() {
+    setTimeout(() => {
+      flatlistRef.current?.scrollToEnd({
+        animated: true,
+      });
+    }, 200);
   }
 
   return {
@@ -71,6 +86,7 @@ export function useChatRoomViewModel({
     isLoading,
     messages,
     userImageUrls,
+    flatlistRef,
     error,
     userId: session?.user.id ?? "",
     title: title as string,
