@@ -1,5 +1,4 @@
 import React from "react";
-
 import { AnimatedFadeEntrance } from "@/animations";
 import { If } from "@/helpers";
 
@@ -9,6 +8,7 @@ import { buildColor, buildIconName } from "./library";
 import { Box } from "../Box/Box";
 import { Text } from "../Text/Text";
 import { useToaster } from "./useToaster";
+import { launchOptions } from "@infra";
 
 export type ToasterConfig = {
   status: "success" | "error" | "warning";
@@ -18,8 +18,10 @@ export type ToasterConfig = {
 
 export type ToasterRefProps = {
   show: (_toaster: ToasterConfig) => void;
-  hide: () => void;
+  hide: VoidFunction;
 };
+
+const isTesting = launchOptions.isTesting();
 
 export const Toaster = React.forwardRef<ToasterRefProps, {}>((_, ref) => {
   const { height, toasterConfig, onLayout } = useToaster(ref);
@@ -33,7 +35,7 @@ export const Toaster = React.forwardRef<ToasterRefProps, {}>((_, ref) => {
       mb="sp25"
       zIndex={10}
       width={"75%"}
-      position="relative"
+      position={!isTesting ? "absolute" : undefined}
       bottom={height}
     >
       <If condition={!!toasterConfig}>
@@ -41,16 +43,16 @@ export const Toaster = React.forwardRef<ToasterRefProps, {}>((_, ref) => {
           <Box
             testID="toast"
             onLayout={onLayout}
-            position="absolute"
+            position={!isTesting ? "absolute" : undefined}
             zIndex={10}
             width={"100%"}
             alignItems="center"
             gap="sp15"
           >
             <Box
-              position="absolute"
+              position={!isTesting ? "absolute" : undefined}
               width={"100%"}
-              height={"100%"}
+              height={!isTesting ? "100%" : undefined}
               borderRadius="rd15"
               zIndex={0}
               bottom={3}
@@ -58,7 +60,7 @@ export const Toaster = React.forwardRef<ToasterRefProps, {}>((_, ref) => {
             />
             <Box
               width={"100%"}
-              height={"100%"}
+              height={!isTesting ? "100%" : undefined}
               backgroundColor="background"
               p="sp12"
               flexDirection="row"

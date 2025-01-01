@@ -53,7 +53,7 @@ export function Button({
             <Text preset="semiBold/16" text={text} color={_variant.textColor} />
           }
         >
-          <ActivityIndicator size={20} />
+          <ActivityIndicator testID={"loading-button"} size={20} />
         </If>
 
         <If condition={!!rightIconName && !loading}>

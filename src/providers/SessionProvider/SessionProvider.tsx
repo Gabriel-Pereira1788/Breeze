@@ -11,7 +11,7 @@ const SessionContext = createContext<ISessionContext>({
   loading: true,
 });
 
-const SessionContextActions = createContext<{ clearSession: () => void }>({
+const SessionContextActions = createContext<{ clearSession: VoidFunction }>({
   clearSession: () => {},
 });
 

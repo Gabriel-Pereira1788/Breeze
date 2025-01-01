@@ -1,4 +1,4 @@
-import { ChatRoom, ChatRoomApi } from "./roomTypes";
+import { ChatRoom, ChatRoomApi, ChatRoomPaginatedResult } from "./roomTypes";
 
 function toChatRoom(chatRoomApi: ChatRoomApi): ChatRoom {
   return {
@@ -14,7 +14,19 @@ function toChatRoomList(chatRoomListApi: ChatRoomApi[]): ChatRoom[] {
   return chatRoomListApi.map((item) => toChatRoom(item));
 }
 
+function toChatRoomPaginatedResult(
+  chatRoomsListApi: ChatRoomApi[],
+  page: number,
+): ChatRoomPaginatedResult {
+  return {
+    data: chatRoomsListApi.map((item) => toChatRoom(item)),
+    nextPage: page + 1,
+    hasNextPage: chatRoomsListApi.length > 0,
+  };
+}
+
 export const roomAdapter = {
   toChatRoom,
+  toChatRoomPaginatedResult,
   toChatRoomList,
 };

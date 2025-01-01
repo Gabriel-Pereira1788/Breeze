@@ -15,7 +15,7 @@ type FooterTabItemProps = {
   iconName: IconProps["iconName"];
   iconColor: string;
   focused: boolean;
-  onPress?: () => void;
+  onPress?: VoidFunction;
 };
 
 const TouchableOpacityAnimated =

@@ -53,6 +53,7 @@ export function SignUpView({ viewModel }: Props) {
       <Box width={"100%"} mt="sp12">
         <AnimatedFadeEntrance entrance="down">
           <Button
+            testID={"register-button"}
             text="Register"
             enableGradient
             disabled={!viewModel.isValidForm}

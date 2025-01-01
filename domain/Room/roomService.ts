@@ -1,12 +1,16 @@
 import { supabase } from "@infra";
 import { roomAdapter } from "./roomAdapter";
-import { NewRoomRequest } from "./roomTypes";
+import { NewRoomRequest, QueryParams } from "./roomTypes";
 import { authService } from "domain/Auth";
 
-async function getRooms() {
+async function getRooms({ page = 1, perPage = 10 }: QueryParams) {
+  const from = (page - 1) * perPage;
+  const to = from + perPage - 1;
+
   const { data: rooms, error } = await supabase
     .from("chat_rooms")
     .select("*")
+    .range(from, to)
     .order("created_at", {
       ascending: true,
     });
@@ -15,7 +19,7 @@ async function getRooms() {
     throw new Error(error.message);
   }
 
-  return rooms ? roomAdapter.toChatRoomList(rooms) : [];
+  return roomAdapter.toChatRoomPaginatedResult(rooms, page);
 }
 
 async function createRoom({ name, description, imageUrl }: NewRoomRequest) {
@@ -38,20 +42,28 @@ async function createRoom({ name, description, imageUrl }: NewRoomRequest) {
   return null;
 }
 
-async function searchByText(text: string) {
+async function searchByText(
+  text: string,
+  { page = 1, perPage = 10 }: QueryParams,
+) {
+  const from = (page - 1) * perPage;
+  const to = from + perPage - 1;
+
   const { data: rooms, error } = await supabase
     .from("chat_rooms")
     .select("*")
     .ilike("name", `%${text}%`)
+    .range(from, to)
     .order("created_at", {
       ascending: true,
     });
 
+  console.log("DATA-ROOMS", rooms);
   if (error) {
     throw new Error(error.message);
   }
 
-  return rooms ? roomAdapter.toChatRoomList(rooms) : [];
+  return roomAdapter.toChatRoomPaginatedResult(rooms, page);
 }
 
 export const roomService = {

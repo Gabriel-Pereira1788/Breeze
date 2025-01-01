@@ -50,6 +50,7 @@ export default function AuthLayout() {
         statusBarStyle: "light",
         headerTitle: "",
         headerShadowVisible: false,
+        headerBackTitle: "Back",
         headerStyle: {
           backgroundColor: palette.background,
         },

@@ -3,11 +3,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSchema, signUpSchema } from "./sign-up.model";
 import { SignUpUseCase, User } from "@domain";
 import { useMutation } from "@tanstack/react-query";
+import { ToasterService } from "@/services";
+import { buildAuthErrorMessage } from "@/helpers";
 
 type Props = {
   signUpUseCase: SignUpUseCase;
+  toasterService: ToasterService;
 };
-export function useSignUpViewModel({ signUpUseCase }: Props) {
+export function useSignUpViewModel({ signUpUseCase, toasterService }: Props) {
   const { control, handleSubmit, formState } = useForm<SignUpSchema>({
     defaultValues: {
       username: "",
@@ -27,11 +30,9 @@ export function useSignUpViewModel({ signUpUseCase }: Props) {
         phone: variables.phone,
         username: variables.username,
       }),
-    onSuccess: (data) => {
-      console.log("SIGN-UP-DATA", data);
-    },
     onError: (error) => {
-      console.log("SIGN-UP-ERROR", error);
+      const { title, message } = buildAuthErrorMessage(error.message);
+      toasterService.error(title, message);
     },
   });
 

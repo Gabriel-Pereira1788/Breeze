@@ -5,7 +5,7 @@ import { Icon } from "../Icon";
 import { Image } from "react-native";
 
 type Props = {
-  onPress: () => void;
+  onPress: VoidFunction;
   imageUri?: string;
 };
 

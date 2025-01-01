@@ -5,7 +5,7 @@ import { LayoutChangeEvent } from "react-native";
 export function useToaster(ref: React.ForwardedRef<ToasterRefProps>) {
   const [height, setHeight] = useState(0);
   const [toasterConfig, setToasterConfig] = useState<ToasterConfig | null>(
-    null
+    null,
   );
 
   useImperativeHandle(
@@ -14,7 +14,7 @@ export function useToaster(ref: React.ForwardedRef<ToasterRefProps>) {
       show,
       hide,
     }),
-    []
+    [],
   );
 
   useEffect(() => {

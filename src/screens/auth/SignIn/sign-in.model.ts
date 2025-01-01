@@ -5,7 +5,7 @@ export const signInSchema = z.object({
 
   password: z
     .string({ required_error: "Empty Field" })
-    .min(5, "Password to short."),
+    .min(5, "Password too short."),
 });
 
 export type SignInSchema = z.infer<typeof signInSchema>;

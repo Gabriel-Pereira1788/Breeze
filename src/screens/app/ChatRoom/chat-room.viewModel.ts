@@ -34,11 +34,11 @@ export function useChatRoomViewModel({
   const [messages, setMessages] = useState<Message[]>([]);
   const userImageUrls = useMemo(
     () => buildAvatars(messages, session?.user.id),
-    [messages]
+    [messages],
   );
 
   useEffect(() => {
-    let chatEvent: { unsubscribe: () => void } | undefined;
+    let chatEvent: { unsubscribe: VoidFunction } | undefined;
     if (data) {
       setMessages(data);
 

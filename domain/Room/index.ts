@@ -1,2 +1,7 @@
 export * from "./useCases";
-export type { ChatRoom, NewRoomRequest } from "./roomTypes";
+export type {
+  ChatRoom,
+  NewRoomRequest,
+  ChatRoomPaginatedResult,
+  QueryParams,
+} from "./roomTypes";

@@ -2,8 +2,8 @@ import { roomService } from "../roomService";
 
 export function GetRoomsUseCaseFactory() {
   return {
-    execute: async () => {
-      return await roomService.getRooms();
+    execute: async (page: number) => {
+      return await roomService.getRooms({ page });
     },
   };
 }

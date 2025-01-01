@@ -1,0 +1,54 @@
+appId: org.name.Breeze
+name: Auth Flow Test
+tags:
+  - auth
+  - flow
+
+---
+- launchApp:
+    clearState: true
+    arguments:
+      isTesting: "true"
+
+- runFlow:
+    when:
+      visible: "Email"
+
+    commands:
+      - tapOn: "Email"
+      - inputText: "test@example.com"
+      - tapOn: "Password"
+      - inputText: "Test123!"
+      - tapOn: "Login"
+      - tapOn: "Login"
+      - assertVisible: "Check your credentials and try again."
+      - tapOn: "Sign Up"
+
+- runFlow:
+    when:
+      visible: "@ Username"
+    commands:
+      - tapOn: "@ Username"
+      - inputText: "testuser"
+      - tapOn: "Email"
+      - inputText: "newuser@example.com"
+      - tapOn: "Phone"
+      - inputText: "+1234567890"
+      - tapOn: "Password"
+      - inputText: "SecurePass123!"
+      - tapOn: "Register"
+      - tapOn: "Register"
+
+- runFlow:
+    when:
+      visible : "User already registered"
+    commands:
+      - tapOn: "Back"
+      - tapOn: "Email"
+      - eraseText
+      - inputText: "newuser@example.com"
+      - tapOn: "Password"
+      - eraseText
+      - inputText: "SecurePass123!"
+      - tapOn: "Login"
+      - tapOn: "Login"

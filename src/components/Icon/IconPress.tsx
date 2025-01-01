@@ -5,7 +5,7 @@ import { buildVariant } from "./library/buildVariant";
 import { Theme } from "@/styles";
 
 export type IconPressProps = {
-  onPress?: () => void;
+  onPress?: VoidFunction;
   testID?: string;
   variant?: "filled" | "transparent" | "rounded";
   enableGradient?: boolean;

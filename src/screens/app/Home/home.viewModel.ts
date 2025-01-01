@@ -1,8 +1,8 @@
 import { ChatRoom, GetRoomByTextUseCase, GetRoomsUseCase } from "@domain";
 import { QueryKeys } from "@infra";
-import { useQuery } from "@tanstack/react-query";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
+import { usePaginatedData } from "@/helpers";
 
 type Props = {
   getRoomsUseCase: GetRoomsUseCase;
@@ -17,21 +17,21 @@ export function useHomeViewModel({
   const [searchText, setSearchText] = useState("");
 
   const {
-    data: rooms,
+    list: rooms,
     isLoading,
-    error,
-  } = useQuery({
+    refresh,
+    refreshing,
+    fetchNextPage,
+  } = usePaginatedData({
     queryKey: [QueryKeys.ChatRooms, searchText],
-    queryFn: getRooms,
+    getDataFn: (page) => getRooms(page),
   });
 
-  console.log("ERROR", error);
-
-  async function getRooms() {
+  async function getRooms(page: number) {
     if (searchText.trim().length > 0) {
-      return await getRoomByTextUseCase.execute(searchText);
+      return await getRoomByTextUseCase.execute(searchText, page);
     } else {
-      return await getRoomsUseCase.execute();
+      return await getRoomsUseCase.execute(page);
     }
   }
 
@@ -57,7 +57,10 @@ export function useHomeViewModel({
     rooms,
     isLoading,
     redirectToChatRoom,
+    fetchNextPage,
     onSearchText,
+    refresh,
+    refreshing,
   };
 }
 

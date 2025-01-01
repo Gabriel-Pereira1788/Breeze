@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
 import { Session, SignInUseCase } from "@domain";
 import { ToasterService } from "@/services";
-import { buildToasterError } from "./library";
+import { buildAuthErrorMessage } from "@/helpers";
 
 type Props = {
   signInUseCase: SignInUseCase;
@@ -29,14 +29,15 @@ export function useSignInViewModel({ signInUseCase, toasterService }: Props) {
   >({
     mutationFn: (variables) =>
       signInUseCase.execute(variables.email, variables.password),
+
     onError: (error) => {
-      const { title, message } = buildToasterError(error.message);
+      const { title, message } = buildAuthErrorMessage(error.message);
       toasterService.error(title, message);
     },
   });
 
-  function onSubmit(signInData: SignInSchema) {
-    mutate(signInData);
+  async function onSubmit(signInData: SignInSchema) {
+    await mutate(signInData);
   }
 
   function redirectToSignUpScreen() {

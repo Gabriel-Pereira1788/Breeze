@@ -20,3 +20,14 @@ export interface NewRoomRequest {
   description: string;
   imageUrl: string;
 }
+
+export interface ChatRoomPaginatedResult {
+  data: ChatRoom[];
+  hasNextPage: boolean;
+  nextPage: number;
+}
+
+export type QueryParams = {
+  page?: number;
+  perPage?: number;
+};
