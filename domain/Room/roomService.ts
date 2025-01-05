@@ -42,6 +42,16 @@ async function createRoom({ name, description, imageUrl }: NewRoomRequest) {
   return null;
 }
 
+async function deleteRoom(roomId: string) {
+  console.log("ROOM-ID", roomId);
+  const { error } = await supabase.from("chat_rooms").delete().eq("id", roomId);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return null;
+}
 async function searchByText(
   text: string,
   { page = 1, perPage = 10 }: QueryParams,
@@ -69,5 +79,6 @@ async function searchByText(
 export const roomService = {
   getRooms,
   createRoom,
+  deleteRoom,
   searchByText,
 };

@@ -17,8 +17,8 @@ export function useNewRoomViewModel({ createRoomUseCase }: Props) {
 
   const { mutate, isLoading } = useMutation<null, Error, NewRoomRequest>({
     mutationFn: (variables) => createRoomUseCase.execute(variables),
-    onSuccess: () => {
-      queryClient.invalidateQueries([QueryKeys.ChatRooms]);
+    onSuccess: async () => {
+      await queryClient.invalidateQueries([QueryKeys.ChatRooms]);
       router.back();
     },
     onError: (error) => {

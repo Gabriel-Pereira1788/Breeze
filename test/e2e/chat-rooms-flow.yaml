@@ -1,0 +1,37 @@
+appId: org.name.Breeze
+name: Chat Rooms Flow Test
+tags:
+  - chat rooms
+  - flow
+
+---
+- launchApp:
+    clearState: true
+    arguments:
+      isTesting: "true"
+
+- runFlow:
+    when:
+      visible: "Email"
+    commands:
+      - tapOn: "Email"
+      - eraseText
+      - inputText: "newuser@example.com"
+      - tapOn: "Password"
+      - eraseText
+      - inputText: "SecurePass123!"
+      - tapOn: "Login"
+      - tapOn: "Login"
+
+- runFlow:
+    when:
+      visible:
+        id: "title-box"
+    commands:
+      - tapOn:
+          id: "search-button"
+      - tapOn: "Search"
+      - inputText: "Gabs"
+      - tapOn: "Gabs room"
+      - tapOn: "Gabs room"
+

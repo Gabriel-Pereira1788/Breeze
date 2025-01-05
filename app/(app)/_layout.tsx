@@ -7,7 +7,12 @@ export default function AppLayout() {
 
   if (!session) return <Redirect href={"sign-in"} />;
   return (
-    <Stack screenOptions={{ headerShown: false, headerShadowVisible: false }}>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        headerShadowVisible: false,
+      }}
+    >
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="chats" />
       <Stack.Screen

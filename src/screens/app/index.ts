@@ -3,3 +3,4 @@ export * from "./Home";
 export * from "./Profile";
 export * from "./NewRoom";
 export * from "./EditProfile";
+export * from "./ChatRoomDetails";

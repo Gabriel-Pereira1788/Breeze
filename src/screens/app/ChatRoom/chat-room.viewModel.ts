@@ -11,6 +11,7 @@ import { useLocalSearchParams } from "expo-router/build/hooks";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { buildAvatars } from "./library";
 import { FlatList } from "react-native";
+import { router } from "expo-router";
 
 type Props = {
   sendMessageUseCase: SendMessageUseCase;
@@ -22,7 +23,7 @@ export function useChatRoomViewModel({
   getMessagesUseCase,
 }: Props) {
   const { session } = useSession();
-  const { chatRoomId, title, imageUrl } = useLocalSearchParams();
+  const { chatRoomId, title, imageUrl, ownerId } = useLocalSearchParams();
 
   const flatlistRef = useRef<FlatList>(null);
 
@@ -81,6 +82,12 @@ export function useChatRoomViewModel({
     }, 200);
   }
 
+  function redirectToChatRoomDetails() {
+    router.navigate(
+      `/(app)/chats/chat-room-details?title=${title}&imageUrl=${imageUrl}&ownerId=${ownerId}&chatRoomId=${chatRoomId}`,
+    );
+  }
+
   return {
     send,
     isLoading,
@@ -88,6 +95,7 @@ export function useChatRoomViewModel({
     userImageUrls,
     flatlistRef,
     error,
+    redirectToChatRoomDetails,
     userId: session?.user.id ?? "",
     title: title as string,
     imageUrl: imageUrl as string,

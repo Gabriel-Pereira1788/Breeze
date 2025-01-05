@@ -13,12 +13,13 @@ export function ChatRoomItem({
   imageUrl,
   description,
   id,
+  ownerId,
   redirectToChatRoom,
 }: Props) {
   return (
     <TouchableOpacityBox
       activeOpacity={0.7}
-      onPress={() => redirectToChatRoom({ name, id, imageUrl })}
+      onPress={() => redirectToChatRoom({ name, id, imageUrl, ownerId })}
       boxProps={{
         width: "100%",
         flexDirection: "row",
@@ -41,7 +42,7 @@ export function ChatRoomItem({
         </Box>
       </If>
       <Box gap="sp10">
-        <Text text={name} preset="medium/16" />
+        <Text text={name} preset="medium/20" />
         <Text
           text={
             description.length > 50

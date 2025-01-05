@@ -1,5 +1,5 @@
 import React from "react";
-import { FooterTabBar } from "@/components";
+import { Box, FooterTabBar } from "@/components";
 import { palette } from "@/styles";
 import { Tabs } from "expo-router";
 
@@ -22,6 +22,7 @@ export default function AppLayout() {
           borderWidth: 0,
         },
         headerTransparent: true,
+
         headerShadowVisible: false,
         headerTitle: "",
       }}

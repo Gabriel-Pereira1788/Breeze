@@ -1,7 +1,7 @@
 import { ChatRoom, GetRoomByTextUseCase, GetRoomsUseCase } from "@domain";
 import { QueryKeys } from "@infra";
 import { router } from "expo-router";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { usePaginatedData } from "@/helpers";
 
 type Props = {
@@ -39,11 +39,14 @@ export function useHomeViewModel({
     id,
     name,
     imageUrl,
-  }: Omit<ChatRoom, "description" | "ownerId">) {
-    router.push(`/(app)/chats/${id}?title=${name}&imageUrl=${imageUrl}`);
+    ownerId,
+  }: Omit<ChatRoom, "description">) {
+    router.push(
+      `/(app)/chats/${id}?title=${name}&imageUrl=${imageUrl}&ownerId=${ownerId}`,
+    );
   }
 
-  async function onSearchText(text: string) {
+  const onSearchText = useCallback(async (text: string) => {
     if (debounceTimeout.current) {
       clearTimeout(debounceTimeout.current);
     }
@@ -51,7 +54,7 @@ export function useHomeViewModel({
     debounceTimeout.current = setTimeout(() => {
       setSearchText(text);
     }, 500);
-  }
+  }, []);
 
   return {
     rooms,

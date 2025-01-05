@@ -1,6 +1,7 @@
 import { EditProfileUseCase } from "@domain";
 import { useEditProfileViewModel } from "./edit-profile.viewModel";
 import { z } from "zod";
+
 export type EditProfileViewProps = {
   viewModel: EditProfileViewModel;
 };

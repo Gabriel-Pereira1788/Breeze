@@ -13,7 +13,9 @@ export function HomeView({ viewModel }: Props) {
     <Box flex={1} alignItems="center" justifyContent="center" pt="sp20">
       <Stack.Screen
         options={{
-          header: () => <HomeListHeader />,
+          header: () => (
+            <HomeListHeader onChangeText={viewModel.onSearchText} />
+          ),
         }}
       />
       <Box flex={1} width={"100%"}>

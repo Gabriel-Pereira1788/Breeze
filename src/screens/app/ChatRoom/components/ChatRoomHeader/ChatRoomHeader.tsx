@@ -1,4 +1,4 @@
-import { Avatar, Box, Text } from "@/components";
+import { Avatar, Box, Text, TouchableOpacityBox } from "@/components";
 import { If, useAppSafeArea } from "@/helpers";
 import { BlurView } from "expo-blur";
 import { Image } from "react-native";
@@ -7,9 +7,15 @@ type Props = {
   imageUrl: string;
   title: string;
   userImageUrls: string[];
+  redirectToChatRoomDetails: VoidFunction;
 };
 
-export function ChatRoomHeader({ imageUrl, title, userImageUrls }: Props) {
+export function ChatRoomHeader({
+  imageUrl,
+  title,
+  userImageUrls,
+  redirectToChatRoomDetails,
+}: Props) {
   const { top } = useAppSafeArea();
   return (
     <Box position="absolute" marginBottom="sp28">
@@ -23,11 +29,16 @@ export function ChatRoomHeader({ imageUrl, title, userImageUrls }: Props) {
         padding="sp20"
         style={{ paddingTop: top }}
       >
-        <Box
-          flex={1}
-          gap="sp15"
-          flexDirection="row"
-          justifyContent="space-between"
+        <TouchableOpacityBox
+          activeOpacity={0.8}
+          testID={"more-info-press"}
+          onPress={redirectToChatRoomDetails}
+          boxProps={{
+            flex: 1,
+            gap: "sp15",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
         >
           <If condition={!!imageUrl}>
             <Avatar size={65} url={imageUrl} />
@@ -35,7 +46,7 @@ export function ChatRoomHeader({ imageUrl, title, userImageUrls }: Props) {
           <Box gap="sp10" justifyContent="center">
             <Text text={title} preset="medium/16" />
           </Box>
-        </Box>
+        </TouchableOpacityBox>
         <Box flex={1} justifyContent="flex-end" flexDirection="row">
           {userImageUrls &&
             userImageUrls.map((url, index) => (
@@ -54,7 +65,7 @@ export function ChatRoomHeader({ imageUrl, title, userImageUrls }: Props) {
       </Box>
       <Box position="absolute" width={"100%"} height={"100%"} overflow="hidden">
         <BlurView
-          intensity={30}
+          intensity={10}
           tint="light"
           style={{ width: "100%", height: "100%", position: "absolute" }}
         />

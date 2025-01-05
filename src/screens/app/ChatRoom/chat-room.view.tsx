@@ -15,12 +15,7 @@ const ITEM_HEIGHT = 200;
 
 export function ChatRoomView({ viewModel }: Props) {
   return (
-    <Box
-      flex={1}
-      alignItems="center"
-      justifyContent="center"
-      paddingHorizontal="sp28"
-    >
+    <Box flex={1}>
       <Stack.Screen
         options={{
           header: () => (
@@ -28,6 +23,7 @@ export function ChatRoomView({ viewModel }: Props) {
               imageUrl={viewModel.imageUrl}
               title={viewModel.title}
               userImageUrls={viewModel.userImageUrls}
+              redirectToChatRoomDetails={viewModel.redirectToChatRoomDetails}
             />
           ),
         }}
